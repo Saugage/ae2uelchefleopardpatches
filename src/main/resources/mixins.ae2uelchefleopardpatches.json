@@ -1,0 +1,21 @@
+{
+  "package": "com.ae2uelchefleopardpatches.mixins",
+  "refmap": "mixins.ae2uelchefleopardpatches.refmap.json",
+  "plugin": "com.ae2uelchefleopardpatches.ChefLeopardMixinPlugin",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ae2.MixinPartFluidStorageBusResetSpam",
+    "ae2.MixinPartFluidStorageBusHandlerHash",
+    "ae2.MixinPrecisePriorityList",
+    "ae2.MixinFuzzyPriorityList",
+    "ae2.MixinMergedPriorityList",
+    "ae2.MixinMEInventoryHandler",
+    "ae2.MixinTunnelType",
+    "ae2.MixinFluidHandlerAdapterInventoryCache",
+    "ae2.MixinAEItemStackRegistry"
+  ],
+  "client": [],
+  "server": []
+}
