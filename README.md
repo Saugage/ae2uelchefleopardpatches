@@ -18,6 +18,7 @@ Every fix can be turned off in `config/ae2uelchefleopardpatches.cfg`.
 ## Dependencies
 
 - Obviously [AE2UEL 0.56.7](https://github.com/AE2-UEL/Applied-Energistics-2)
+- Requires MixinBooter
 
 ## Credits
 
