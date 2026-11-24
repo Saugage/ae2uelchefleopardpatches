@@ -10,6 +10,9 @@ AE2UEL has some critical bugs in 0.56.7, so this addon is a patch with mixins fo
 - [Fix fluid P2P attunement producing an FE P2P](https://github.com/MasonD/Applied-Energistics-2/commit/55d3f10aa84399e0e9e13460e134192b171443e8), originally by MasonD. Fixes [Fluid P2P Error](https://github.com/AE2-UEL/Applied-Energistics-2/issues/546).
 - [Don't crash when fluid bus placed on empty fluid drawer](https://github.com/MasonD/Applied-Energistics-2/commit/ffe8561c9a40dd432366d312e27f0e22aabe2f19), originally by MasonD. In Extractable Only mode the fluid storage bus called `drain(null)` on empty tanks, which crashes fluid drawers; empty tanks are now skipped.
 - [Revert 724f3ba](https://github.com/AE2-UEL/Applied-Energistics-2/commit/844ae6e78a797f1f48d72afd7530bcd0b8323e05), originally by kurrycat. The shared item stack registry was keyed only by hash code, so different items with colliding hashes were merged into the same shared stack. It is now keyed by `AESharedItemStack` equality with weak references.
+
+### Addon Fixes
+
 - Fix the [AE2 Stuff Unofficial](https://github.com/AE2-UEL/ae2stuff) wireless hub TOP display showing the number of connections as the channels used. It now shows the sum of channels used across all of the hub's links.
 
 ## Configuration
