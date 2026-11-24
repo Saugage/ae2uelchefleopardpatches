@@ -40,4 +40,8 @@
 dependencies {
     // AE2 Unofficial Extended Life 0.56.7 (required)
     api(rfg.deobf("curse.maven:ae2-extended-life-570458:6302098"))
+
+    // AE2 Stuff Unofficial 0.10 (optional) and its BdLib 1.14.4.1 dependency
+    devOnlyNonPublishable(rfg.deobf("curse.maven:ae2-stuff-unofficial-951064:6706171"))
+    devOnlyNonPublishable(rfg.deobf("curse.maven:bdlib-70496:4675629"))
 }

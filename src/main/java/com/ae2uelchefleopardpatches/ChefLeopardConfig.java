@@ -19,6 +19,7 @@ public final class ChefLeopardConfig {
     public static boolean fixFluidP2PAttunement = true;
     public static boolean fixFluidBusEmptyDrawerCrash = true;
     public static boolean fixItemStackRegistryCollisions = true;
+    public static boolean fixAE2StuffHubTOPChannels = true;
 
     private static boolean loaded;
 
@@ -49,6 +50,9 @@ public final class ChefLeopardConfig {
         fixItemStackRegistryCollisions = config.getBoolean("fixItemStackRegistryCollisions", CATEGORY, true,
                 "Revert AE2UEL 724f3ba: key shared item stacks by equality instead of hash code, so items with"
                         + " colliding hashes are no longer merged.");
+        fixAE2StuffHubTOPChannels = config.getBoolean("fixAE2StuffHubTOPChannels", CATEGORY, true,
+                "Fix the AE2 Stuff wireless hub TOP display showing the connection count as the channels used."
+                        + " Only applies when AE2 Stuff Unofficial is installed.");
 
         if (config.hasChanged()) {
             config.save();

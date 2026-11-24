@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 
+import net.minecraftforge.fml.common.Loader;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
@@ -21,17 +23,23 @@ public class ChefLeopardMixinPlugin implements IMixinConfigPlugin {
 
         final String key;
         final BooleanSupplier enabled;
+        final String requiredMod;
 
-        Toggle(String key, BooleanSupplier enabled) {
+        Toggle(String key, BooleanSupplier enabled, String requiredMod) {
             this.key = key;
             this.enabled = enabled;
+            this.requiredMod = requiredMod;
         }
     }
 
     private final Map<String, Toggle> toggles = new HashMap<>();
 
     private void register(String key, BooleanSupplier enabled, String... mixins) {
-        Toggle toggle = new Toggle(key, enabled);
+        registerForMod(null, key, enabled, mixins);
+    }
+
+    private void registerForMod(String requiredMod, String key, BooleanSupplier enabled, String... mixins) {
+        Toggle toggle = new Toggle(key, enabled, requiredMod);
         for (String mixin : mixins) {
             this.toggles.put(mixin, toggle);
         }
@@ -54,6 +62,8 @@ public class ChefLeopardMixinPlugin implements IMixinConfigPlugin {
                 "ae2.MixinFluidHandlerAdapterInventoryCache");
         register("fixItemStackRegistryCollisions", () -> ChefLeopardConfig.fixItemStackRegistryCollisions,
                 "ae2.MixinAEItemStackRegistry");
+        registerForMod("ae2stuff", "fixAE2StuffHubTOPChannels", () -> ChefLeopardConfig.fixAE2StuffHubTOPChannels,
+                "ae2stuff.MixinTOPHandler");
     }
 
     @Override
@@ -66,7 +76,14 @@ public class ChefLeopardMixinPlugin implements IMixinConfigPlugin {
         String name = mixinClassName.startsWith(MIXIN_PACKAGE) ? mixinClassName.substring(MIXIN_PACKAGE.length())
                 : mixinClassName;
         Toggle toggle = this.toggles.get(name);
-        if (toggle == null || toggle.enabled.getAsBoolean()) {
+        if (toggle == null) {
+            return true;
+        }
+        if (toggle.requiredMod != null && !Loader.isModLoaded(toggle.requiredMod)) {
+            LOGGER.info("Mod '{}' not loaded, skipping {}", toggle.requiredMod, name);
+            return false;
+        }
+        if (toggle.enabled.getAsBoolean()) {
             return true;
         }
         LOGGER.info("Fix '{}' disabled by config, skipping {}", toggle.key, name);
